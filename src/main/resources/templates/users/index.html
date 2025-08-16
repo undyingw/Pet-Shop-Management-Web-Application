@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>books</title>
+</head>
+<body>
+
+<div style="min-height: 100px;">
+    <div th:each="user : ${users}" >
+        <a th:href="@{/users/{id}(id=${user.getId()})}"
+           th:text="${user.getFullName() + ', ' + user.getEmail() + ', '
+        + user.getRole()}">user</a>
+    </div>
+</div>
+
+<br>
+
+
+</body>
+</html>
