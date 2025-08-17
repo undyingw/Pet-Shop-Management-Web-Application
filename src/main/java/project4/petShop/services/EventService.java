@@ -7,6 +7,7 @@ import project4.petShop.models.Event;
 import project4.petShop.repositories.EventRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,26 +21,27 @@ public class EventService {
     }
 
     @Transactional
-    public void createEvent(Event event) {
+    public void addEvent(Event event) {
         eventRepository.save(event);
     }
 
     @Transactional
-    public void editEvent(int id, Event event) {
+    public void update(int id, Event event) {
         event.setId(id);
         eventRepository.save(event);
     }
+
 
     @Transactional
     public void deleteEvent(int id) {
         eventRepository.deleteById(id);
     }
 
-    public Event getEvent(int id) {
-        return eventRepository.findById(id).get();
+    public Event findById(int id) {
+        return eventRepository.findById(id).orElse(null);
     }
 
-    public List<Event> findAll(int id) {
+    public List<Event> findAll() {
         return eventRepository.findAll();
     }
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>edit event</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/events/{id}(id=${event.get()})}" th:object="${event}">
+    <label for="type">select eventType:
+        <select th:field="*{type}">
+            <option th:each="type : ${eventType}"
+                    th:value="${type}"
+                    th:text="${type}" id="type">
+        </select>
+    </label>
+    <br/>
+    <label for="date">Enter date Of Birth: </label>
+    <input type="date" th:field="*{date}" id="date"/>
+    <div style="color:red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{date}">date Error
+    </div>
+    <br/>
+    <label for="pet">select eventType:
+        <select th:field="*{pet}">
+            <option th:each="pet : ${pets}"
+                    th:value="${pet.getId()}"
+                    th:text="${pet.getNickname()}" id="pet">
+        </select>
+    </label>
+    <br/>
+    <input type="submit" value="Register!"/>
+</form>
+
+</body>
+</html>

@@ -40,11 +40,11 @@ public class UserService {
     }
 
     public User findById(int id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElse(null);
     }
 
     public User findByIdWithPets(int id) {
-        return userRepository.findByIdWithPets(id).get();
+        return userRepository.findByIdWithPets(id).orElse(null);
     }
 
     public List<User> findByFullNameStartingWith(String fullName){

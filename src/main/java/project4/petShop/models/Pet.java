@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import project4.petShop.util.PetEventType;
 import project4.petShop.util.PetStatus;
 import project4.petShop.util.PetType;
 
@@ -26,7 +25,7 @@ public class Pet {
 
     @Column(name = "nickname")
     @NotEmpty(message = "Кличка не должна быть пустой")
-    @Size(min = 2, max = 100, message = "Кличка должна быть от 2 до 50 символов длиной")
+    @Size(min = 2, max = 100, message = "Кличка должна быть от 2 до 100 символов длиной")
     private String nickname;
 
     @Enumerated(EnumType.STRING)
@@ -44,7 +43,7 @@ public class Pet {
     @JoinColumn(name = "owner")
     private User owner;
 
-    @OneToMany(mappedBy = "pet")
+    @OneToMany(mappedBy = "pet", fetch =  FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Event> events = new ArrayList<>();
 
     @Builder // позволяет удобно создавать объект через билдер

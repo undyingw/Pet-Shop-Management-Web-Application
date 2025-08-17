@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>books</title>
@@ -8,5 +8,20 @@
 
 <div th:text="${user.getId()}"></div>
 
+<div th:switch="${#lists.isEmpty(user.getPets())}">
+    <div th:case="true" th:text="Человек не имеет ни одного питомца"></div>
+    <div th:case="false">
+        <ul style="list-style-type:none">
+            <li th:each="pet : ${user.getPets()}">
+                <a th:href="@{/pets/{id}(id=${pet.getId()})}" th:text="'Имя ' + ${pet.getNickname()}
+                + 'Родился ' + ${pet.getDateOfBirth()} + 'Вид ' + ${pet.getPetType()} "></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+    <input type="submit" value="Удалить пользователя"/>
+</form>
 </body>
 </html>

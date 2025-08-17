@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>events</title>
+</head>
+<body>
+
+<div style="min-height: 100px;">
+        <div
+           th:text="${event.getDate() + ', ' + event.getType() + ', '
+        + event.getPet().getNickname()}">user</div>
+</div>
+
+<br>
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>books</title>
+</head>
+<body>
+
+
+<div th:href="@{/pets/{id}(id=${pet.getId()})}"
+     th:text="${pet.getNickname() + ', ' + pet.getDateOfBirth() + ', '
+        + pet.getOwner()}">user
+</div>
+<div th:switch="${#lists.isEmpty(pet.getEvents())}">
+    <div th:case="false">
+        <p>Список событий с этим животным:</p>
+        <ul style="list-style-type:none">
+            <li th:each="event : ${pet.getEvents()}">
+                <div th:text="'Дата ' + ${event.getDate()}+ 'Тип события '+ ${event.getType()}"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<br>
+
+
+</body>
+</html>

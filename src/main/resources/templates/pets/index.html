@@ -2,15 +2,15 @@
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>books</title>
+    <title>pets</title>
 </head>
 <body>
 
 <div style="min-height: 100px;">
     <div th:each="pet : ${pets}" >
-<!--        <a th:href="@{/users/{id}(id=${user.getId()})}"-->
-<!--           th:text="${user.getFullName() + ', ' + user.getEmail() + ', '-->
-<!--        + user.getRole()}">user</a>-->
+        <a th:href="@{/pets/{id}(id=${pet.getId()})}"
+           th:text="${pet.getNickname() + ', ' + pet.getDateOfBirth() + ', '
+        + pet.getOwner()}">user</a>
     </div>
 </div>
 

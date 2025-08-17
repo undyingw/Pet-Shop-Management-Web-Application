@@ -40,6 +40,6 @@ public class PetService {
     }
 
     public Pet findById(int id) {
-        return petRepository.findById(id).get();
+        return petRepository.findById(id).orElse(null);
     }
 }

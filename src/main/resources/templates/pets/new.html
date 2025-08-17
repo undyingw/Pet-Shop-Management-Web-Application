@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New pet</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/pets/new}" th:object="${pet}">
+    <label for="nickname">Enter nickname: </label>
+    <input type="text" th:field="*{nickname}" id="nickname"/>
+    <div style="color:red" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">Name Error</div>
+    <br/>
+    <label for="dateOfBirth">Enter date Of Birth: </label>
+    <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth"/>
+    <div style="color:red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">dateOfBirth Error
+    </div>
+    <br/>
+    <label for="type">select type:
+        <select th:field="*{petType}">
+            <option th:each="type : ${types}"
+                    th:value="${type}"
+                    th:text="${type}" id="type">
+        </select>
+    </label>
+    <br/>
+    <label for="owner">select owner:
+        <select th:field="*{owner}">
+            <option th:each="user : ${users}"
+                    th:value="${user.getId()}"
+                    th:text="${user.getFullName()}" id="owner">
+        </select>
+    </label>
+    <label for="status">select pet status:
+        <select th:field="*{petStatus}">
+            <option th:each="status : ${statuses}"
+                    th:value="${status}"
+                    th:text="${status}" id="status">
+        </select>
+    </label>
+    <br/>
+    <input type="submit" value="Register!"/>
+</form>
+
+</body>
+</html>
