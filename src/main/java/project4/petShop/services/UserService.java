@@ -33,6 +33,9 @@ public class UserService {
         user.setId(id);
         userRepository.save(user);
     }
+    public User findByLogin(String login) {
+        return userRepository.findByLogin(login).orElse(null);
+    }
 
     @Transactional
     public void deleteUser(int id) {

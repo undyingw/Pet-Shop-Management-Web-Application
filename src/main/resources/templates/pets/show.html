@@ -8,7 +8,7 @@
 
 
 <div th:href="@{/pets/{id}(id=${pet.getId()})}"
-     th:text="${pet.getNickname() + ', ' + pet.getDateOfBirth() + ', '
+     th:text="${pet.getPetType() +  ', '+ pet.getNickname() + ', ' + pet.getDateOfBirth() + ', '
         + pet.getOwner()}">user
 </div>
 <div th:switch="${#lists.isEmpty(pet.getEvents())}">

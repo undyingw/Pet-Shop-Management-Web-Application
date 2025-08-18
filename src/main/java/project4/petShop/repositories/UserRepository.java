@@ -14,4 +14,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.pets WHERE u.id = :id")
     Optional<User> findByIdWithPets(@Param("id") int id);
     List<User> findByFullNameStartingWith(String fullName);
+    Optional<User> findByLogin(String login);
 }
