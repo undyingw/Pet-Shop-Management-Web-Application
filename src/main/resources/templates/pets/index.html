@@ -14,6 +14,14 @@
     </div>
 </div>
 
+<form th:action="@{/pets/filter}" method="get">
+    <label>Фильтр по статусу:</label>
+    <select name="status">
+        <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
+    </select>
+    <button type="submit">Фильтровать</button>
+</form>
+
 <br>
 
 

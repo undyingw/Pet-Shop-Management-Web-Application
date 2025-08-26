@@ -3,6 +3,7 @@ package project4.petShop.controllers;
 
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ public class UserController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public String index(Model model) {
         model.addAttribute("users", userService.findAll());
 
@@ -59,6 +61,7 @@ public class UserController {
         return "users/edit";
     }
 
+    @PreAuthorize("hasRole('ADMIN') or #pet.owner.login == authentication.name")
     @PatchMapping("/{id}")
     public String update(@PathVariable int id, @ModelAttribute @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

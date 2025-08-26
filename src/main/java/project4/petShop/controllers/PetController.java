@@ -1,6 +1,7 @@
 package project4.petShop.controllers;
 
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,7 @@ public class PetController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public String index(Model model) {
         model.addAttribute("pets", petService.findAll());
 
@@ -61,6 +63,8 @@ public class PetController {
         model.addAttribute("statuses", PetStatus.values());
         return "pets/edit";
     }
+
+    @PreAuthorize("hasRole('ADMIN') or #pet.owner.login == authentication.name")
     @PatchMapping("/{id}")
     public String update(@PathVariable int id, @ModelAttribute Pet pet, BindingResult result) {
         if (result.hasErrors()) {
@@ -73,5 +77,29 @@ public class PetController {
     public String delete(@PathVariable int id) {
         petService.deletePet(id);
         return "redirect:/pets";
+    }
+
+    @GetMapping("/{id}/changeStatus")
+    public String changeStatusForm(@PathVariable int id, Model model) {
+        model.addAttribute("pet", petService.findById(id));
+        model.addAttribute("statuses", PetStatus.values());
+        return "pets/changeStatus";
+    }
+
+    @PostMapping("/{id}/changeStatus")
+    public String changeStatus(@PathVariable int id, @RequestParam PetStatus status) {
+        Pet pet = petService.findById(id);
+        if (pet != null) {
+            pet.setPetStatus(status);
+            petService.updatePet(id, pet);
+        }
+        return "redirect:/pets/" + id;
+    }
+
+    @GetMapping("/filter")
+    public String filterByStatus(@RequestParam PetStatus status, Model model) {
+        model.addAttribute("pets", petService.findByStatus(status));
+        model.addAttribute("statuses", PetStatus.values());
+        return "pets/index";
     }
 }

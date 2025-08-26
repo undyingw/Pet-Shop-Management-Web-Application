@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Смена статуса питомца</title>
+</head>
+<body>
+<h2>Смена статуса питомца</h2>
+<form th:action="@{|/pets/${pet.id}/changeStatus|}" method="post">
+    <label for="status">Выберите статус:</label>
+    <select name="status" id="status">
+        <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
+    </select>
+    <button type="submit">Обновить</button>
+</form>
+</body>
+</html>

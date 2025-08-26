@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project4.petShop.models.Pet;
 import project4.petShop.repositories.PetRepository;
+import project4.petShop.util.PetStatus;
 
 import java.util.List;
 
@@ -41,5 +42,9 @@ public class PetService {
 
     public Pet findById(int id) {
         return petRepository.findById(id).orElse(null);
+    }
+
+    public List<Pet> findByStatus(PetStatus status) {
+        return petRepository.findByPetStatus(status);
     }
 }
